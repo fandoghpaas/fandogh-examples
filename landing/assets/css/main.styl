@@ -1,0 +1,48 @@
+@import "variables.styl"
+
+// fonts
+@font-face
+  font-family yekan
+  font-style normal
+  src url('~/assets/fonts/yekan-regular.ttf')
+
+html
+  background-image: linear-gradient(to left, #0f0050, #160074) !important;
+  
+.container
+    margin-right: auto;
+    margin-left: auto;
+    padding-left:  15px;
+    padding-right: 15px;
+
+    @media (min-width: 768px) { width: 750px; }
+    @media (min-width: 1024px) { width: 970px; }
+    @media (min-width: 1200px) { width: 1170px; }
+
+li              
+  list-style: none
+p, h1, button, span
+  font-family yekan, sans-serif
+  color white
+p, button, span
+  font-size font-small
+p
+  line-height 1.88
+h1
+  font-size font-big
+  line-height 2.38
+  
+input
+  font-size font-small
+  color #000
+input::placeholder
+  color gray
+  font-family yekan, sans-serif
+  font-size: font-small
+.img-responsive
+  width 100%
+
+@media (max-width: 768px )
+  input, input::placeholder
+    font-size font-x-small
+    font-family yekan, sans-serif
