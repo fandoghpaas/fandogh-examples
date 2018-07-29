@@ -1,0 +1,25 @@
+FROM ubuntu:18.04
+RUN apt-get update && apt-get upgrade
+RUN apt-get update
+
+RUN apt-get install -y libdpkg-perl
+RUN DEBIAN_FRONTEND=noninteractive  apt-get install -y git man curl php php-pear php-curl php-dev php-gd php-mbstring php-zip php-mysql php-xml
+RUN curl -s https://getcomposer.org/installer | php
+RUN a2enmod rewrite
+WORKDIR /var/www/code
+COPY ./code /var/www/code
+RUN php composer.phar clearcache
+RUN php composer.phar config --global github-protocols https
+RUN php composer.phar install --prefer-dist --no-interaction 
+RUN apt-get install apache2
+ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+ADD apache2.conf /etc/apache2/apache2.conf
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_LOCK_DIR /var/lock/apache2
+ENV APACHE_PID_FILE /var/run/apache2.pid
+RUN a2enmod rewrite
+RUN rm -f /var/www/code/index.html
+#CMD /usr/sbin/apache2ctl -D FOREGROUND
+CMD php yii serve 0.0.0.0 -p 8080
