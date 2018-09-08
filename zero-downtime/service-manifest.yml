@@ -1,0 +1,12 @@
+kind: ExternalService
+name: zero-downtime
+spec:
+  image: zero-downtime:v1.1
+  port: 8080
+  replicas: 2
+  liveness_probe:
+    http_get:
+      path: /
+      port: 8080
+    initial_delay_seconds: 10
+    period_seconds: 5
