@@ -1,0 +1,13 @@
+var express = require('express');
+
+// Constants
+var PORT = 8080;
+
+// App
+var app = express();
+app.get('/', function (req, res) {
+  res.send('Hello from v1, deployed on fandogh cloud.\n');
+});
+
+app.listen(PORT);
+console.log('Running on http://localhost:' + PORT);
